@@ -102,5 +102,26 @@ public class Peminjaman {
       conn.close();
       return peminjamanList;
     }
-    
+
+    public static List<Peminjaman> searchFromDatabase(String keyword) throws SQLException {
+        List<Peminjaman> peminjamanList = new ArrayList<>();
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM peminjaman WHERE nama_peminjam LIKE ? OR npm_peminjam LIKE ?");
+        stmt.setString(1, "%" + keyword + "%");
+        stmt.setString(2, "%" + keyword + "%");
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Peminjaman peminjaman = new Peminjaman(
+                rs.getInt("id_peminjaman"),
+                rs.getInt("id_alat"),
+                rs.getString("nama_peminjam"),
+                rs.getString("npm_peminjam"),
+                rs.getDate("tanggal_pinjam"),
+                rs.getDate("tanggal_kembali")
+            );
+            peminjamanList.add(peminjaman);
+        }
+        conn.close();
+        return peminjamanList;
+    }
 }

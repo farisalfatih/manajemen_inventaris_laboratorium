@@ -73,8 +73,35 @@ public class PenjagaLaboratoriumController {
     }
 
     public void hapusAlat(int id) {
+      try {
+        AlatLaboratorium.hapusDariDatabase(id); // Hapus alat dari database
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    
+        // Fungsi untuk menambah peminjaman
+    public void tambahPeminjaman(Peminjaman peminjaman) {
         try {
-            AlatLaboratorium.hapusDariDatabase(id); // Hapus alat dari database
+            peminjaman.simpanKeDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Fungsi untuk mengedit peminjaman
+    public void editPeminjaman(Peminjaman peminjaman) {
+        try {
+            peminjaman.updateDiDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Fungsi untuk menghapus peminjaman
+    public void hapusPeminjaman(int idPeminjaman) {
+        try {
+            Peminjaman.hapusDariDatabase(idPeminjaman);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -106,4 +133,27 @@ public class PenjagaLaboratoriumController {
       }
     }
 
+    // Method to handle login logic
+    public boolean login(String username, String password) {
+      // Call the login method from the PenjagaLaboratorium model
+      return PenjagaLaboratorium.login(username, password);
+    }
+    
+    public static List<Peminjaman> searchPeminjaman(String keyword) {
+        try {
+            return Peminjaman.searchFromDatabase(keyword);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
+    public static List<AlatLaboratorium> searchAlat(String keyword) {
+        try {
+            return AlatLaboratorium.searchFromDatabase(keyword);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
 }

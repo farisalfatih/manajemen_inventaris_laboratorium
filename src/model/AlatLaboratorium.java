@@ -1,5 +1,3 @@
-// AlatLaboratorium.java
-
 package model;
 
 import java.sql.*;
@@ -69,20 +67,40 @@ public class AlatLaboratorium {
 
     // Fungsi untuk mengambil semua alat dari database
     public static List<AlatLaboratorium> getAllFromDatabase() throws SQLException {
-        List<AlatLaboratorium> alatList = new ArrayList<>();
-        Connection conn = DatabaseConnection.getConnection();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM alat_laboratorium");
-        while (rs.next()) {
-            AlatLaboratorium alat = new AlatLaboratorium(
-                rs.getInt("id"),
-                rs.getString("nama"),
-                rs.getString("deskripsi"),
-                rs.getInt("stok")
-            );
-            alatList.add(alat);
-        }
-        conn.close();
-        return alatList;
+      List<AlatLaboratorium> alatList = new ArrayList<>();
+      Connection conn = DatabaseConnection.getConnection();
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM alat_laboratorium");
+      while (rs.next()) {
+        AlatLaboratorium alat = new AlatLaboratorium(
+            rs.getInt("id"),
+            rs.getString("nama"),
+            rs.getString("deskripsi"),
+            rs.getInt("stok"));
+        alatList.add(alat);
+      }
+      conn.close();
+      return alatList;
     }
+    
+    // Fungsi untuk mencari alat dari database
+    public static List<AlatLaboratorium> searchFromDatabase(String keyword) throws SQLException {
+      List<AlatLaboratorium> alatList = new ArrayList<>();
+      Connection conn = DatabaseConnection.getConnection();
+      PreparedStatement stmt = conn.prepareStatement("SELECT * FROM alat_laboratorium WHERE nama LIKE ? OR deskripsi LIKE ?");
+      stmt.setString(1, "%" + keyword + "%");
+      stmt.setString(2, "%" + keyword + "%");
+      ResultSet rs = stmt.executeQuery();
+      while (rs.next()) {
+          AlatLaboratorium alat = new AlatLaboratorium(
+              rs.getInt("id"),
+              rs.getString("nama"),
+              rs.getString("deskripsi"),
+              rs.getInt("stok")
+          );
+          alatList.add(alat);
+      }
+      conn.close();
+      return alatList;
+  }
 }
