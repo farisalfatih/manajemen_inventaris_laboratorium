@@ -138,22 +138,4 @@ public class PenjagaLaboratoriumController {
       // Call the login method from the PenjagaLaboratorium model
       return PenjagaLaboratorium.login(username, password);
     }
-    
-    public static List<Peminjaman> searchPeminjaman(String keyword) {
-        try {
-            return Peminjaman.searchFromDatabase(keyword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return List.of();
-        }
-    }
-
-    public static List<AlatLaboratorium> searchAlat(String keyword) {
-        try {
-            return AlatLaboratorium.searchFromDatabase(keyword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return List.of();
-        }
-    }
 }

@@ -13,16 +13,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MainFrame extends JFrame {
-    private JTextArea searchResultsArea;
     private PenjagaLaboratoriumController penjagaController;
     private JTable alatTable, peminjamanTable;
     private DefaultTableModel alatTableModel, peminjamanTableModel;
     private JButton tambahAlatButton, editAlatButton, hapusAlatButton;
     private JButton tambahPeminjamanButton, editPeminjamanButton, hapusPeminjamanButton;
-    private JButton searchButton, logoutButton; // Tombol pencarian dan logout
-    private JTextField searchField;
     private JLabel loggedInUserLabel;
-    private JPanel searchPanel, alatButtonPanel, peminjamanButtonPanel;
+    private JPanel alatButtonPanel, peminjamanButtonPanel;
     private JScrollPane alatScrollPane, peminjamanScrollPane;
 
     public MainFrame() {
@@ -52,27 +49,10 @@ public class MainFrame extends JFrame {
         editPeminjamanButton = new JButton("Edit Peminjaman");
         hapusPeminjamanButton = new JButton("Hapus Peminjaman");
 
-        searchField = new JTextField(20);
-        searchButton = new JButton("Cari"); // Tombol pencarian
-        logoutButton = new JButton("Logout"); // Tombol logout
-        searchPanel = new JPanel(new FlowLayout());
-        searchPanel.add(new JLabel("Cari:"));
-        searchPanel.add(searchField);
-        searchPanel.add(searchButton);
-        searchPanel.add(logoutButton);
-
         loggedInUserLabel = new JLabel("Belum Login");
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
-        // Add search panel
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        add(searchPanel, gbc);
 
         // Add alat scroll pane
         gbc.gridx = 0;
@@ -266,35 +246,6 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // Initialize search components
-        searchResultsArea = new JTextArea(10, 30);
-        searchResultsArea.setEditable(false);
-        searchField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String keyword = searchField.getText();
-                List<AlatLaboratorium> alatResults;
-                List<Peminjaman> peminjamanResults;
-
-                // Call the search methods without catching SQLException
-                alatResults = PenjagaLaboratoriumController.searchAlat(keyword);
-                peminjamanResults = PenjagaLaboratoriumController.searchPeminjaman(keyword);
-
-                // Display search results
-                searchResultsArea.setText("");
-                searchResultsArea.append("Alat:\n");
-                for (AlatLaboratorium alat : alatResults) {
-                    searchResultsArea.append(alat.getNama() + " - " + alat.getDeskripsi() + "\n");
-                }
-
-                searchResultsArea.append("\nPeminjaman:\n");
-                for (Peminjaman peminjaman : peminjamanResults) {
-                    searchResultsArea.append(peminjaman.getNamaPeminjam() + " - " + peminjaman.getNpmPeminjam() + "\n");
-                }
-            }
-        });
-
-
         // Call login method
         try {
             login();
@@ -339,12 +290,6 @@ public class MainFrame extends JFrame {
 
                 // Add search panel
                 GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = 0;
-                gbc.gridy = 0;
-                gbc.gridwidth = 2;
-                gbc.fill = GridBagConstraints.HORIZONTAL;
-                gbc.insets = new Insets(10, 10, 10, 10);
-                add(searchPanel, gbc);
 
                 // Add alat scroll pane
                 gbc.gridx = 0;
@@ -378,9 +323,6 @@ public class MainFrame extends JFrame {
                 gbc.gridy = 3;
                 gbc.gridwidth = 2;
                 add(loggedInUserLabel, gbc);
-
-                // Load data
-                loadData();
 
                 revalidate();
                 repaint();
