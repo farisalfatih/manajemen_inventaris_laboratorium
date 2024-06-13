@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2024 at 05:17 AM
+-- Generation Time: Jun 13, 2024 at 05:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -39,13 +39,13 @@ CREATE TABLE `alat_laboratorium` (
 --
 
 INSERT INTO `alat_laboratorium` (`id`, `nama`, `deskripsi`, `stok`) VALUES
-(1, 'Alat 1', 'Deskripsi Alat 1', 10),
+(1, 'Alat 11', 'Deskripsi alat 11', 20),
 (2, 'Alat 2', 'Deskripsi Alat 2', 15),
 (3, 'Alat 3', 'Deskripsi Alat 3', 20),
 (4, 'Alat 4', 'Deskripsi Alat 4', 12),
 (5, 'Alat 5', 'Deskripsi Alat 5', 8),
 (6, 'Alat 6', 'Deskripsi Alat 6', 25),
-(7, 'Alat 7', 'Deskripsi Alat 7', 18),
+(7, 'alat 7', 'Deskripsi Alat 7', 40),
 (8, 'Alat 8', 'Deskripsi Alat 8', 30),
 (9, 'Alat 9', 'Deskripsi Alat 9', 22),
 (10, 'Alat 10', 'Deskripsi Alat 10', 7),
@@ -68,7 +68,11 @@ INSERT INTO `alat_laboratorium` (`id`, `nama`, `deskripsi`, `stok`) VALUES
 (27, 'Alat 27', 'Deskripsi Alat 27', 32),
 (28, 'Alat 28', 'Deskripsi Alat 28', 29),
 (29, 'Alat 29', 'Deskripsi Alat 29', 34),
-(30, 'Alat 30', 'Deskripsi Alat 30', 37);
+(30, 'Alat 30', 'Deskripsi Alat 30', 37),
+(33, 'Botol Kimia', 'Botol kaca untuk cairan asam', 50),
+(34, 'mikroskop', 'Tersedia', 5),
+(35, 'suntik', 'tersedia', 50),
+(36, 'Alat 7', 'deskripsi 7', 30);
 
 -- --------------------------------------------------------
 
@@ -90,7 +94,6 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_alat`, `nama_peminjam`, `npm_peminjam`, `tanggal_pinjam`, `tanggal_kembali`) VALUES
-(1, 1, 'Peminjam 1', '22081010001', '2024-06-12', '2024-06-15'),
 (2, 2, 'Peminjam 2', '22081010002', '2024-06-13', '2024-06-16'),
 (3, 3, 'Peminjam 3', '22081010003', '2024-06-14', '2024-06-17'),
 (4, 4, 'Peminjam 4', '22081010004', '2024-06-15', '2024-06-18'),
@@ -119,7 +122,8 @@ INSERT INTO `peminjaman` (`id_peminjaman`, `id_alat`, `nama_peminjam`, `npm_pemi
 (27, 27, 'Peminjam 27', '22081010027', '2024-07-08', '2024-07-11'),
 (28, 28, 'Peminjam 28', '22081010028', '2024-07-09', '2024-07-12'),
 (29, 29, 'Peminjam 29', '22081010029', '2024-07-10', '2024-07-13'),
-(30, 30, 'Peminjam 30', '22081010030', '2024-07-11', '2024-07-14');
+(30, 33, 'Mohammad Faris Al Fatih', '22081010277', '2024-06-01', '2024-06-13'),
+(31, 34, 'mikroskop', '100', '2024-06-20', '2024-07-01');
 
 -- --------------------------------------------------------
 
@@ -172,13 +176,13 @@ ALTER TABLE `penjaga_laboratorium`
 -- AUTO_INCREMENT for table `alat_laboratorium`
 --
 ALTER TABLE `alat_laboratorium`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `penjaga_laboratorium`
